@@ -1,0 +1,516 @@
+// ==============================
+// 共通設定
+// ==============================
+
+// フォントサイズ
+$font-size_xs: 1.2rem;
+$font-size_s: 1.4rem;
+$font-size_default: 1.6rem;
+$font-size_m: 2.4rem;
+$font-size_l: 3.2rem;
+$font-size_xl: 4rem;
+$font-size_xxl: 5.6rem;
+
+// 余白
+$space_s: 8px;
+$space_m: 16px;
+$space_default: 24px;
+$space_l: 32px;
+$space_xl: 40px;
+$space_xxl: 80px;
+$space_xxxl: 120px;
+
+// 色
+$color_black: #141414;
+$color_base-green: #5dad94;
+$color_light-green: #3db263;
+$color_white: #fbfbfa;
+$color_gray: #bdc3c7;
+$color_pink: #de5065;
+
+// 画面幅ブレイクポイント
+$screen-width: (
+  "width-phone": "screen and(max-width: 414px)",
+  "width-ipad": "screen and(max-width: 768px)",
+) !default;
+
+@mixin screenWidth($width: width-phone) {
+  @media #{map-get($screen-width, $width)} {
+    @content;
+  }
+}
+
+html {
+  /* 1rem=10px, 16px=1.6rem */
+  font-size: 62.5%;
+}
+
+body {
+  color: $color_black;
+  font-size: $font-size_default;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  text-size-adjust: 100%;
+}
+
+// コンテンツ幅
+.section-wrapper {
+  padding: $space_xxxl 20% 0;
+
+  @include screenWidth() {
+    padding: $space_xxl 5% 0;
+  }
+}
+
+// 画像共通
+img {
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
+// 格項目タイトル
+.title__headline {
+  font-size: $font-size_m;
+  margin-bottom: $space_l;
+  font-weight: bold;
+
+  @include screenWidth() {
+    font-size: $font-size_default;
+    margin-bottom: $space_m;
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+.margin-last {
+  margin-bottom: $space_xxxl;
+}
+
+.background-white {
+  background: $color-white;
+}
+
+// ==============================
+// ヘッダー
+// ==============================
+
+.header {
+  height: 60px;
+  width: 100%;
+  padding: 0 $space_xxxl;
+  position: fixed;
+  background: $color_white;
+  z-index: 4;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include screenWidth("width-ipad") {
+    padding: 0 $space_xl;
+  }
+
+  @include screenWidth() {
+    padding: 0 $space_m;
+    font-size: $font-size_xs;
+  }
+
+  &__title {
+    span {
+      font-size: $font-size_s;
+      color: $color_base-green;
+      letter-spacing: 0.5em;
+      @include screenWidth() {
+        letter-spacing: 0.2em;
+      }
+    }
+  }
+}
+
+// 検索窓
+.search-form {
+  border: 1px solid $color_gray;
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+
+// ==============================
+// fv
+// ==============================
+.fv {
+  background-image: url(../img/fv.jpeg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-attachment: fixed;
+
+  @include screenWidth("width-ipad") {
+    background-attachment: scroll;
+  }
+
+  &__title {
+    font-size: $font-size_xl;
+    font-weight: bold;
+    line-height: 2.5;
+
+    @include screenWidth() {
+      font-size: $font-size_m;
+      line-height: 1.5;
+    }
+
+    span {
+      letter-spacing: 0.35em;
+    }
+  }
+}
+
+// ==============================
+// ハンバーガーボタン
+// ==============================
+.burger {
+  display: none;
+  
+
+  @include screenWidth("width-ipad") {
+    display: inline-block;
+    transition: all 0.4s;
+    position: relative;
+    width: 32px;
+    height: 24px;
+    z-index: 4;
+  }
+
+  &__bar {
+    @include screenWidth("width-ipad") {
+      display: inline-block;
+      transition: all 0.4s;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-radius: 3px;
+      background: $color_base-green;
+    }
+    // 上の棒
+    &--top {
+      @include screenWidth("width-ipad") {
+        top: 0;
+      }
+    }
+    // 真の棒
+    &--mid {
+      @include screenWidth("width-ipad") {
+        top: 50%;
+      }
+    }
+    // 下の棒
+    &--last {
+      @include screenWidth("width-ipad") {
+        bottom: 0;
+      }
+    }
+  }
+
+  // ハンバーガーボタンがバツになる動き
+  &.js-is-cross {
+    // 上の棒
+    & .burger__bar--top {
+      transform: translateY(10px) rotate(-45deg);
+    }
+    // 中の棒
+    & .burger__bar--mid {
+      opacity: 0;
+    }
+    // 下の棒
+    & .burger__bar--last {
+      transform: translateY(-12px) rotate(45deg);
+    }
+  }
+}
+
+// ハンバーガーメニューが出ている時はスクロールさせない
+.js-stop-scroll {
+  overflow: hidden;
+}
+
+// ==============================
+// メニュー
+// ==============================
+
+// nav
+.nav {
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $color_base-green;
+  height: 56px;
+
+  @include screenWidth("width-ipad") {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100vw;
+    height: 100vh;
+    transition: 0.4s;
+
+    &.js-is-open {
+      transition: 0.4s;
+      transform: translateX(-100%);
+      display: block;
+      z-index: 3;
+    }
+  }
+
+  // ul
+  &__inner {
+    display: flex;
+    
+    @include screenWidth("width-ipad") {
+      display: block;
+      padding-top: 100px;
+    }
+
+    // li
+    &-item {
+      color: $color_white;
+
+      @include screenWidth("width-ipad") {
+        display: flex;
+        justify-content: center;
+        padding: 30px;
+        font-size: $font-size_default;
+      }
+    }
+   
+    &-item + &-item {
+      margin-left: $space_xl;
+
+      @include screenWidth("width-ipad") {
+        margin-left: 0;
+      }
+    }
+    &-item:hover {
+      opacity: 0.5;
+    }
+  }
+}
+
+.js-is-fixed {
+  // スクロールしてもメニュー固定
+  position: fixed;
+  // headerがheight60pxなので、メニューを60pxの位置に設置することで重ならないようにしている
+  top: 60px;
+
+}
+
+// ==============================
+// 新着情報＆よくある質問
+// ==============================
+
+.list {
+  @include screenWidth() {
+    font-size: $font-size_s;
+  }
+
+  &-inner {
+    border-bottom: 1px solid $color_gray;
+    padding: $space_s 0;
+  }
+
+  &-inner a:hover {
+    opacity: 0.5;
+  }
+  &-inner span {
+    color: $color_light-green;
+  }
+}
+
+// ==============================
+// newアイコン
+// ==============================
+.new-icon:after {
+  content: "NEW";
+  color: $color_white;
+  background: $color_pink;
+  font-size: $font-size_s;
+  padding: 3px;
+  margin-left: 8px;
+
+  @include screenWidth() {
+    font-size: $font-size_xs;
+  }
+}
+
+// ==============================
+// メッセージ
+// ==============================
+.for-pic {
+  margin-top: $space_xxxl;
+  padding-bottom: $space_xxxl;
+  background-image: url(../img/message.jpeg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+
+  @include screenWidth() {
+    margin-top: $space_xl;
+  }
+}
+
+.message {
+  line-height: 2;
+  opacity: 0;
+  transform: translate(0, 50px);
+  transition: all 1s;
+
+  &__sub-title {
+    font-weight: bold;
+    font-size: $font-size_l;
+    transition: all 1s;
+    text-align: center;
+
+    @include screenWidth() {
+      font-size: $font-size_m;
+    }
+  }
+
+  & p {
+    font-size: $font-size_m;
+    @include screenWidth() {
+      font-size: $font-size_default;
+    }
+  }
+}
+
+.add-padding {
+  padding: $space_l $space_xl;
+}
+
+.is-fade-in {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+// ==============================
+// 募集要項
+// ==============================
+.recruit__inner {
+  margin: 0 auto;
+
+  &-title {
+    text-align: center;
+    padding: $space_s;
+    background: $color_base-green;
+    margin-top: $space_m;
+    color: $color_white;
+    font-weight: normal;
+  }
+
+  &-detail {
+    display: block;
+    text-align: center;
+    padding-top: $space_m;
+    font-size: $font-size_m;
+    @include screenWidth() {
+      font-size: $font-size_default;
+    }
+
+    &:last-child {
+      padding-bottom: $space_m;
+    }
+  }
+}
+
+.link-button {
+  float: right;
+  color: $color_pink;
+  border-bottom: 3px double $color_pink;
+  display: block;
+  margin: $space_default 0;
+}
+
+// ==============================
+// インタビュー
+// ==============================
+
+.interview {
+  &__inner {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+
+    &-item {
+      max-width: 450px;
+      text-align: center;
+
+      &-title {
+        color: $color_light-green;
+        font-weight: bold;
+        border-bottom: 1px solid $color_gray;
+        margin: $space_s 0;
+      }
+    }
+  }
+}
+
+.expand-img {
+  overflow: hidden;
+  transition: all 0.8s ease-out;
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.5s ease-out;
+  }
+}
+
+.interview__inner + .interview__inner {
+  margin-top: $space_xl;
+}
+
+.reverse-item {
+  flex-direction: row-reverse;
+}
+
+// リボンの装飾
+.ribon {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+
+  & .caption {
+    display: inline;
+    
+    & span {
+      position: absolute;
+      display: inline-block;
+      top: 20px;
+      left: -25px;
+      width: 120px;
+      padding: 2px 10px;
+      background: $color_pink;
+      color: $color_white;
+      text-align: center;
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+footer {
+  background: $color_base-green;
+  color: #fbfbfa;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,15 @@
+{
+  "name": "morisato",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build-css": "node-sass --include-path scss scss/style.scss css/style.css",
+    "watch-css": "nodemon -e scss -x \"yarn run build-css\""
+  },
+  "author": "",
+  "devDependencies": {
+    "node-sass": "^4.9.4",
+    "nodemon": "^1.18.4"
+  }
+}
